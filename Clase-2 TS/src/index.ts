@@ -6,20 +6,20 @@ let role: "admin" | "user" | "owner" = "user"
 
 
 //type nos permite definir tipos de datos custom 
-type Role = "admin" | "user" | "owner"
+/* type Role = "admin" | "user" | "owner"
 
-let userRole: Role = "user"
+let userRole: Role = "user" */
 
 //void hace referencia a que la funcion NO tiene retorno, o que su retorno no es importante
-function saludar(nombre: string): void {
+/* function saludar(nombre: string): void {
     console.log("hola " + nombre + "!")
-}
+} */
 
 //saludar("pepe")
 
-function sumar(a: number, b: number): number {
+/* function sumar(a: number, b: number): number {
     return a + b
-}
+} */
 
 //console.log(sumar(1, 1))
 
@@ -36,7 +36,7 @@ const usuario: {
 } */
 
 //Esto mismo se puede hacer de forma mas practica con las interfaces
-interface User {
+/* interface User {
     nombre: string,
     email: string,
     id: number
@@ -52,21 +52,21 @@ let usuario_2: User = {
     nombre: "juan",
     email: "juan@gmail.com",
     id: 22
-}
+} */
 
 //arrays
-let nombres: string[] = ["pepe", "juan", "jose"]
+/* let nombres: string[] = ["pepe", "juan", "jose"]
 let notas: number[] = [1, 2, 3]
-let usuario_en_array: [string, number] = ["pepe", 50]
-const usuarios: User[] = [
+let usuario_en_array: [string, number] = ["pepe", 50] */
+/* const usuarios: User[] = [
     {nombre: 'pepe', email: 'pepe@gmail.com', id: 10}, 
     {nombre: 'jose', email: 'jose@gmail.com', id: 41}, 
     {nombre: 'maria', email: 'maria@gmail.com', id: 40}
-]
+] */
 
-usuarios.push({nombre: 'jose', email: 'jose@gmail.com', id: 44})
+//usuarios.push({nombre: 'jose', email: 'jose@gmail.com', id: 44})
 
-let porcentaje_iva: number = 21
+/* let porcentaje_iva: number = 21
 interface DetalleIva {
     iva: number,
     precio_final: number,
@@ -86,4 +86,26 @@ function calcularIva(precio_original: number): DetalleIva{
 }
 
 const resultado = calcularIva(10000)
+console.log(resultado) */
+
+interface User {
+    nombre: string,
+    email: string,
+    id: number
+}
+const usuarios: User[] = [
+    {nombre: 'pepe', email: 'pepe@gmail.com', id: 10}, 
+    {nombre: 'jose', email: 'jose@gmail.com', id: 41}, 
+    {nombre: 'maria', email: 'maria@gmail.com', id: 40}
+]
+
+function obtenerMails(usuarios: User[]): string[] {
+    const emails: string[] = [];
+    for (const usuario of usuarios){
+        emails.push(usuario.email)
+    }
+    return emails
+}
+
+const resultado = obtenerMails(usuarios)
 console.log(resultado)
