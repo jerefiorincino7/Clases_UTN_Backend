@@ -79,7 +79,25 @@ class Product {
         this.stock = stock
         this.categories = categories
     }
+    addCategory(new_category: string): boolean{
+        const already_exist_category = this.categories.includes(new_category)
+        if(already_exist_category){
+            return false
+        }
+        this.categories.push(new_category)
+        return true
+    }
+    deleteCategory(category:string): boolean{
+        const already_exist_category = this.categories.includes(category)
+        if(already_exist_category){
+            const index_category = this.categories.indexOf(category)
+            this.categories.splice(index_category, 1)
+            return true
+        }
+        return false
+    }
 }
+
 
 class ProductsManager {
     products: Product[]
@@ -117,9 +135,33 @@ class ProductsManager {
         }
         return null
     }
+    filterByCategories(categories_to_filter: string[]): Product[]{
+        const products_filtered: Product[] = []
+
+        for(const product of this.products){
+            let valid_product = true
+            for(const category of categories_to_filter){
+                if(!toLowerCaseAll(product.categories).includes(category.toLowerCase())){
+                    valid_product = false
+                    break
+                }
+            }
+            if(valid_product){
+                products_filtered.push(product)
+            }
+        }
+
+        return products_filtered
+    }
 }
 
-
+function toLowerCaseAll(strings: string[]): string[]{
+    const stringsLowerCase = []
+    for(let string of strings){
+        stringsLowerCase.push(string.toLowerCase())
+    }
+    return stringsLowerCase
+}
 
 const productManager = new ProductsManager()
 const new_product_id = productManager.create(
@@ -130,4 +172,22 @@ const new_product_id = productManager.create(
     40,
     ['electro']
 )
-console.log(new_product_id)
+productManager.create(
+    'tv samsung 2',
+    5000,
+    10,
+    'tv muy buena',
+    40,
+    ['navidad']
+)
+
+productManager.create(
+    'tv samsung 3',
+    5000,
+    10,
+    'tv muy buena',
+    40,
+    ['navidad', 'electro']
+)
+
+console.log(productManager.filterByCategories(["electro", "navidad"]))
