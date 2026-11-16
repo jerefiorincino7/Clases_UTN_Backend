@@ -24,3 +24,22 @@ CREATE TABLE membresias (
     CONSTRAINT fk_membresias_usuarios FOREIGN KEY (fk_id_usuario) REFERENCES usuarios(id),
     CONSTRAINT fk_membresias_espacios_trabajo FOREIGN KEY (fk_id_espacio_trabajo) REFERENCES espacios_de_trabajo(id)
 )
+
+CREATE TABLE canales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(30) NOT NULL,
+    descripcion TEXT(1000),
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fk_id_espacio_trabajo INT NOT NULL,
+    CONSTRAINT fk_canales_espacios_trabajo FOREIGN KEY (fk_id_espacio_trabajo) REFERENCES espacios_de_trabajo(id)
+)
+
+CREATE TABLE mensajes (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    contenido TEXT(3000) NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fk_id_canal INT NOT NULL,
+    fk_id_membresia INT NOT NULL,
+    CONSTRAINT fk_mensajes_canales FOREIGN KEY (fk_id_canal) REFERENCES canales(id),
+    CONSTRAINT fk_mensajes_membresias FOREIGN KEY (fk_id_membresia) REFERENCES membresias(id)
+)
